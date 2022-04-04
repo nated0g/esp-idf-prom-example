@@ -20,12 +20,10 @@
 #include "lwip/apps/netbiosns.h"
 #include "protocol_examples_common.h"
 #include "prom.h"
-#include "./metrics.h"
+#include "rest_server.h"
+#include "metrics.h"
 
 static const char *TAG = "esp-idf-prom-test";
-
-esp_err_t start_rest_server(const char *base_path);
-
 
 prom_histogram_t *test_histogram;
 
@@ -47,6 +45,7 @@ static void init(void) {
 void app_main(void)
 {
     init();
+    request_counter_init();
     ESP_ERROR_CHECK(nvs_flash_init());
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
